@@ -15,6 +15,12 @@ import java.util.stream.Stream;
 
 public class CalculatorServiceParameterizedTest {
 
+    public static final Integer ZERO = 0;
+    public static final Integer POSITIVE_NUMBER1 = 50;
+    public static final Integer POSITIVE_NUMBER2 = 150;
+    public static final Integer NEGATIVE_NUMBER1 = -100;
+    public static final Integer NEGATIVE_NUMBER2 = -50;
+
 
     private CalculatorService calculatorService;
     @BeforeEach
@@ -23,36 +29,36 @@ public class CalculatorServiceParameterizedTest {
     }
 
     public static Stream<Arguments> PlusTestParams() {
-        return Stream.of(Arguments.of(5, 5, "5+5=10")
-                ,Arguments.of(-1,8,"-1+8=7"));
+        return Stream.of(Arguments.of(POSITIVE_NUMBER2, NEGATIVE_NUMBER1, POSITIVE_NUMBER2+NEGATIVE_NUMBER1)
+                ,Arguments.of(NEGATIVE_NUMBER2,POSITIVE_NUMBER1,NEGATIVE_NUMBER2+POSITIVE_NUMBER1));
     }
 
     public static Stream<Arguments> MinusTestParams() {
-        return Stream.of(Arguments.of(5, 5, "5-5=0")
-                ,Arguments.of(-1,8,"-1-8=-9"));
+        return Stream.of(Arguments.of(NEGATIVE_NUMBER1, NEGATIVE_NUMBER2, NEGATIVE_NUMBER1-NEGATIVE_NUMBER2)
+                ,Arguments.of(POSITIVE_NUMBER1,POSITIVE_NUMBER2,POSITIVE_NUMBER1-POSITIVE_NUMBER2));
     }
 
     public static Stream<Arguments> MultiplyTestParams() {
-        return Stream.of(Arguments.of(5, 5, "5*5=25")
-                ,Arguments.of(-1,8,"-1*8=-8"));
+        return Stream.of(Arguments.of(NEGATIVE_NUMBER1, POSITIVE_NUMBER1, NEGATIVE_NUMBER1*POSITIVE_NUMBER1)
+                ,Arguments.of(POSITIVE_NUMBER1,NEGATIVE_NUMBER1,POSITIVE_NUMBER1*NEGATIVE_NUMBER1));
     }
 
     public static Stream<Arguments> DivideTestParams() {
         return Stream.of(
-                 Arguments.of(5, 5, "5/5=1")
-                ,Arguments.of(10,8,"10/8=1"));
+                 Arguments.of(POSITIVE_NUMBER2, NEGATIVE_NUMBER1, POSITIVE_NUMBER2/NEGATIVE_NUMBER1)
+                ,Arguments.of(POSITIVE_NUMBER1,NEGATIVE_NUMBER1,POSITIVE_NUMBER1/NEGATIVE_NUMBER1));
     }
 
 
     public static Stream<Arguments> DivideNegativeTestParams() {
         return Stream.of(
-                Arguments.of(5, 0),
-                Arguments.of(-1,0));
+                Arguments.of(POSITIVE_NUMBER2, ZERO),
+                Arguments.of(NEGATIVE_NUMBER2,ZERO));
     }
 
     @ParameterizedTest
     @MethodSource("PlusTestParams")
-    public void calcPlusTest(int a,int b,String expected) {
+    public void calcPlusTest(int a,int b,Integer expected) {
 
         Assertions.assertThat(calculatorService.calcPlus(a, b))
                 .isEqualTo(expected);
@@ -60,7 +66,7 @@ public class CalculatorServiceParameterizedTest {
 
     @ParameterizedTest
     @MethodSource("MinusTestParams")
-    public void calcMinusTest(int a,int b,String expected) {
+    public void calcMinusTest(int a,int b,Integer expected) {
 
         Assertions.assertThat(calculatorService.calcMinus(a, b))
                 .isEqualTo(expected);
@@ -68,7 +74,7 @@ public class CalculatorServiceParameterizedTest {
 
     @ParameterizedTest
     @MethodSource("MultiplyTestParams")
-    public void calcMultiplyTest(int a,int b,String expected) {
+    public void calcMultiplyTest(int a,int b,Integer expected) {
 
         Assertions.assertThat(calculatorService.calcMultiply(a, b))
                 .isEqualTo(expected);
@@ -76,7 +82,7 @@ public class CalculatorServiceParameterizedTest {
 
     @ParameterizedTest
     @MethodSource("DivideTestParams")
-    public void calcDivideTest(int a,int b,String expected) {
+    public void calcDivideTest(int a,int b,Integer expected) {
 
         Assertions.assertThat(calculatorService.calcDivide(a, b))
                 .isEqualTo(expected);

@@ -11,35 +11,35 @@ public class CalculatorServiceImpl implements CalculatorService {
         return "Добро пожаловать в калькулятор";
     }
     @Override
-    public String calcPlus(Integer num1, Integer num2) {
+    public Integer calcPlus(Integer num1, Integer num2) {
         if (num1==null||num2==null) {
             throw new NoDataEnteredException("введите данные");
         }
-        return num1 + "+" + num2 + "=" + (num1 + num2);
+        return num1 + num2;
     }
     @Override
-    public String calcMinus(Integer num1, Integer num2) {
+    public Integer calcMinus(Integer num1, Integer num2) {
         if (num1==null||num2==null) {
             throw new NoDataEnteredException("введите данные");
         }
-        return num1 + "-" + num2 + "=" + (num1 - num2);
+        return num1 - num2;
     }
     @Override
-    public String calcMultiply(Integer num1, Integer num2) {
+    public Integer calcMultiply(Integer num1, Integer num2) {
         if (num1==null||num2==null) {
             throw new NoDataEnteredException("введите данные");
         }
-        return num1 + "*" + num2 + "=" + (num1 * num2);
+        return num1 * num2;
     }
     @Override
-    public String calcDivide(Integer num1, Integer num2) {
+    public Integer calcDivide(Integer num1, Integer num2) {
         if (num1==null||num2==null) {
             throw new NoDataEnteredException("введите данные");
         }
         if (num2 == 0) {
             throw new DivisionByZeroException("Делить на ноль нельзя");
         }
-        return num1 + "/" + num2 + "=" + (num1 / num2);
+        return num1 / num2;
     }
 
 }

@@ -11,6 +11,14 @@ import org.junit.jupiter.api.Test;
 
 public class CalculatorServiceImplTest {
 
+    public static final Integer ZERO = 0;
+    public static final Integer POSITIVE_NUMBER1 = 50;
+    public static final Integer POSITIVE_NUMBER2 = 150;
+    public static final Integer NEGATIVE_NUMBER1 = -100;
+    public static final Integer NEGATIVE_NUMBER2 = -50;
+
+
+
     private CalculatorService calculatorService;
     @BeforeEach
     public void before() {
@@ -19,14 +27,14 @@ public class CalculatorServiceImplTest {
 
     @Test
     public void calcPlusTest() {
-        var actual = calculatorService.calcPlus(5,5);
-        var expected = "5+5=10";
+        var actual = calculatorService.calcPlus(POSITIVE_NUMBER1,NEGATIVE_NUMBER2);
+        var expected = POSITIVE_NUMBER1+NEGATIVE_NUMBER2;
 
         Assertions.assertEquals(expected, actual);
 
 
-        actual = calculatorService.calcPlus(-2,5);
-        expected = "-2+5=3";
+        actual = calculatorService.calcPlus(POSITIVE_NUMBER2,NEGATIVE_NUMBER1);
+        expected = POSITIVE_NUMBER2+NEGATIVE_NUMBER1;
 
         Assertions.assertEquals(expected, actual);
     }
@@ -34,14 +42,14 @@ public class CalculatorServiceImplTest {
 
     @Test
     public void calcMinusTest() {
-        var actual = calculatorService.calcMinus(5,5);
-        var expected = "5-5=0";
+        var actual = calculatorService.calcMinus(NEGATIVE_NUMBER2,POSITIVE_NUMBER1);
+        var expected = NEGATIVE_NUMBER2-POSITIVE_NUMBER1;
 
         Assertions.assertEquals(expected, actual);
 
 
-        actual = calculatorService.calcMinus(-2,5);
-        expected = "-2-5=-7";
+        actual = calculatorService.calcMinus(POSITIVE_NUMBER1,NEGATIVE_NUMBER1);
+        expected = POSITIVE_NUMBER1-NEGATIVE_NUMBER1;
 
         Assertions.assertEquals(expected, actual);
     }
@@ -49,30 +57,30 @@ public class CalculatorServiceImplTest {
 
     @Test
     public void calcMultiplyTest() {
-        var actual = calculatorService.calcMultiply(5,5);
-        var expected = "5*5=25";
+        var actual = calculatorService.calcMultiply(POSITIVE_NUMBER1,POSITIVE_NUMBER2);
+        var expected = POSITIVE_NUMBER1*POSITIVE_NUMBER2;
 
         Assertions.assertEquals(expected, actual);
 
 
-        actual = calculatorService.calcMultiply(-2,5);
-        expected = "-2*5=-10";
+        actual = calculatorService.calcMultiply(NEGATIVE_NUMBER2,NEGATIVE_NUMBER1);
+        expected = NEGATIVE_NUMBER2*NEGATIVE_NUMBER1;
 
         Assertions.assertEquals(expected, actual);
     }
 
     @Test
     public void calcDivideTest() {
-        var actual = calculatorService.calcDivide(5,5);
-        var expected = "5/5=1";
+        var actual = calculatorService.calcDivide(POSITIVE_NUMBER2,NEGATIVE_NUMBER1);
+        var expected = POSITIVE_NUMBER2/NEGATIVE_NUMBER1;
 
         Assertions.assertEquals(expected, actual);
     }
 
     @Test
     public void calcNegativeDivideTest() {
-        Assertions.assertThrows(DivisionByZeroException.class, () -> calculatorService.calcDivide(5, 0));
-        Assertions.assertThrows(DivisionByZeroException.class, () -> calculatorService.calcDivide(8, 0));
+        Assertions.assertThrows(DivisionByZeroException.class, () -> calculatorService.calcDivide(POSITIVE_NUMBER2, ZERO));
+        Assertions.assertThrows(DivisionByZeroException.class, () -> calculatorService.calcDivide(POSITIVE_NUMBER1, ZERO));
     }
 
 }
